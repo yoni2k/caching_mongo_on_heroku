@@ -14,7 +14,7 @@ def get_year_by_id(user_id):
 
 
 @app.route("/populate_db")
-def populate_db(user_id):
+def populate_db():
     dataLayer.populate_db()
     return 'DB populated'
 
