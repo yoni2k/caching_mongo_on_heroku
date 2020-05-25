@@ -1,5 +1,6 @@
 import pymongo
 import os
+import random
 
 
 class DataLayer:
@@ -9,7 +10,7 @@ class DataLayer:
         return user_dict['year_of_birth']
 
     def populate_db(self):
-        dob_info = [{'id': str(i), 'year_of_birth': 1950} for i in range(10000)]
+        dob_info = [{'id': str(i), 'year_of_birth': random.randint(1920, 2020)} for i in range(10000)]
         self.__dob.insert_many(dob_info)
 
         # for i in range(10000):
