@@ -23,4 +23,4 @@ class DataLayer:
             client = pymongo.MongoClient(mongo_uri, 27017)
 
         db = client.get_default_database()
-        self.__dob = self.__client["years_of_birth"]
+        self.__dob = db["years_of_birth"]
