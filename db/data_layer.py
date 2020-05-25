@@ -9,9 +9,12 @@ class DataLayer:
         return user_dict['year_of_birth']
 
     def populate_db(self):
-        for i in range(10000):
-            dob_info = {'id': str(i), 'year_of_birth': 1950}
-            self.__dob.insert_one(dob_info)
+        dob_info = [{'id': str(i), 'year_of_birth': 1950} for i in range(10000)]
+        self.__dob.insert_many(dob_info)
+
+        # for i in range(10000):
+        #     dob_info = {'id': str(i), 'year_of_birth': 1950}
+        #     self.__dob.insert_many(dob_info)
 
     def __init__(self):
         mongo_uri = os.environ.get('MONGODB_URI')
