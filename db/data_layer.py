@@ -10,6 +10,9 @@ class DataLayer:
         return user_dict['year_of_birth']
 
     def populate_db(self):
+        # delete everything existing
+        self.__dob.drop()
+
         dob_info = [{'id': str(i), 'year_of_birth': random.randint(1920, 2020)} for i in range(10000)]
         self.__dob.insert_many(dob_info)
 

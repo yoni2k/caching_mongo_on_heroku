@@ -7,7 +7,7 @@ app = Flask(__name__)
 dataLayer = DataLayer()
 
 
-@app.route("/get_year_of_birth/<string:user_id>")
+@app.route("/year_of_birth/<string:user_id>")
 def get_year_by_id(user_id):
     user_year_of_birth = dataLayer.get_year_of_birth_by_id(user_id)
     return str(user_year_of_birth)
