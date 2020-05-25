@@ -13,6 +13,12 @@ def get_user_by_id(user_id):
     return user_year_of_birth
 
 
+@app.route("/populate_db")
+def get_user_by_id(user_id):
+    dataLayer.populate_db()
+    return 'DB populated'
+
+
 if __name__ == "__main__":
     # Heroku provides environment variable 'PORT' that should be listened on by Flask
     port = os.environ.get('PORT')
