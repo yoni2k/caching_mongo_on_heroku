@@ -10,7 +10,7 @@ dataLayer = DataLayer()
 @app.route("/get_year_of_birth/<string:user_id>")
 def get_year_by_id(user_id):
     user_year_of_birth = dataLayer.get_year_of_birth_by_id(user_id)
-    return user_year_of_birth
+    return str(user_year_of_birth)
 
 
 @app.route("/populate_db")
