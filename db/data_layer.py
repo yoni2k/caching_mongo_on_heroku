@@ -17,7 +17,7 @@ class DataLayer:
         mongo_uri = os.environ.get('MONGODB_URI')
 
         if mongo_uri:
-            client = pymongo.MongoClient(mongo_uri + '&retryWrites=false')
+            client = pymongo.MongoClient(mongo_uri, retryWrites=False)
         else:
             # running locally, not on Heroku (or MongoDB was not added as AddOn)
             client = pymongo.MongoClient(mongo_uri, 27017)
