@@ -7,14 +7,14 @@ app = Flask(__name__)
 dataLayer = DataLayer()
 
 
-@app.route("/user_year_of_birth/<string:user_id>")
-def get_user_by_id(user_id):
+@app.route("/get_year_of_birth/<string:user_id>")
+def get_year_by_id(user_id):
     user_year_of_birth = dataLayer.get_year_of_birth_by_id(user_id)
     return user_year_of_birth
 
 
 @app.route("/populate_db")
-def get_user_by_id(user_id):
+def populate_db(user_id):
     dataLayer.populate_db()
     return 'DB populated'
 
