@@ -1,5 +1,6 @@
 from flask import Flask
 from db.data_layer import DataLayer
+import os
 
 app = Flask(__name__)
 
@@ -13,4 +14,10 @@ def get_user_by_id(user_id):
 
 
 if __name__ == "__main__":
-    app.run()
+    # Heroku provides environment variable 'PORT' that should be listened on by Flask
+    port = os.environ.get('PORT')
+
+    if port:
+        app.run(host='0.0.0.0', port=int(port))
+    else:
+        app.run()
