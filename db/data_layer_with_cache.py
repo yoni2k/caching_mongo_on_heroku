@@ -52,4 +52,4 @@ class DataLayerWithCache:
 
         db = client.get_default_database()
         self.__dob = db["dates_of_birth"]
-        __cache = cache
+        DataLayerWithCache.__cache = cache
