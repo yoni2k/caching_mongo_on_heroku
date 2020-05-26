@@ -69,4 +69,4 @@ def populate_db():
 
 if __name__ == "__main__":
     # Heroku provides environment variable 'PORT' that should be listened on by Flask
-    app.run(host='0.0.0.0', port=int(port = os.environ.get('PORT')))
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT')))
