@@ -10,7 +10,7 @@ OFFSET_OF_IDs = 5
 class DataLayer:
 
     def get_dob(self, user_id):
-        print(f'In data_layer_no_cache.py: Getting Date of birth for user id: {user_id}')
+        print(f'DB: Getting Date of birth for user id: {user_id}')
         user_dict = self.__dob.find_one({"id": user_id})
         if user_dict:
             return user_dict['dob']
@@ -47,7 +47,7 @@ data_layer = DataLayer()
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
 def dob_cache_api(user_id):
     if request.method == 'GET':
-        print(f'In apy.py: Getting Date of birth for user id: {user_id}')
+        print(f'API: Getting Date of birth for user id: {user_id}')
         dob = data_layer.get_dob(user_id)
         return str(dob)
     elif request.method == 'PUT':

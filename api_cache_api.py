@@ -19,7 +19,7 @@ cache.init_app(app)
 @cache.cached(timeout=30)
 def dob_cache_api(user_id):
     if request.method == 'GET':
-        print(f'In apy.py: Getting Date of birth for user id: {user_id}')
+        print(f'API: Getting Date of birth for user id: {user_id}')
         dob = data_layer.get_dob(user_id)
         return str(dob)
     elif request.method == 'PUT':
