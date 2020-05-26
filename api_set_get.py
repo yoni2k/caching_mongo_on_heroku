@@ -34,8 +34,8 @@ def dob(user_id):
 
 @app.route("/benchmark", methods=['POST'])
 def benchmark():
-    threshold = cache.config['CACHE_THRESHOLD']
     print(cache.config.keys())
+    threshold = cache.config['CACHE_THRESHOLD']
 
     offset = data_layer.OFFSET_OF_IDs
 
