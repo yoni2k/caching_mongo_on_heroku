@@ -4,7 +4,7 @@ import pymongo
 import os
 import random
 
-OFFSET_OF_IDs = 5
+OFFSET_OF_IDs = 10
 
 
 class DataLayerNoCache:

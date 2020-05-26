@@ -38,7 +38,7 @@ class DataLayerSetGet:
         dob_infos = [
             {'id': str(i),
              'dob': random.randint(1920, 2020)}
-            for i in range(OFFSET_OF_IDs, num_entries + OFFSET_OF_IDs)]
+            for i in range(self.OFFSET_OF_IDs, num_entries + self.OFFSET_OF_IDs)]
         self.__dob.insert_many(dob_infos)
 
     def __init__(self, cache):
