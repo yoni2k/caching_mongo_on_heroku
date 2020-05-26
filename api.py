@@ -49,7 +49,7 @@ def dob_cache_api(user_id):
 
 
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
-def dob_cache_api(user_id):
+def dob(user_id):
     cache_type = request.args.get('cache_type')
     if cache_type == 'memoize':
         data_layer = data_layers['memoize']
