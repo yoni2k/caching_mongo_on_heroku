@@ -24,10 +24,7 @@ def dob_vars(user_id):
     """
     if request.method == 'GET':
         dob = dataLayer.get_dob(user_id)
-        if dob:
-            return str(dob)
-        else:
-            return 'No such user'
+        return str(dob)
     elif request.method == 'PUT':
         dob = request.args.get('dob')
         dataLayer.set_dob(user_id, dob)

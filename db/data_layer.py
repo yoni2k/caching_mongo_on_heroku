@@ -7,7 +7,10 @@ class DataLayer:
 
     def get_dob(self, user_id):
         user_dict = self.__dob.find_one({"id": user_id})
-        return user_dict['dob']
+        if user_dict:
+            return user_dict['dob']
+        else:
+            return 'No such user'
 
     def set_dob(self, user_id, dob):
         self.__dob.insert_one({"id": user_id, 'dob': dob})
