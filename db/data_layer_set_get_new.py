@@ -12,7 +12,11 @@ class DataLayerSetGet:
             return dob
         else:
             print(f'In DB: Getting Date of birth for user id FROM DB: {user_id}')
-            return self.__get_dob_generic(self.__dob, user_id)
+            user_dict = self.__dob.find_one({"id": user_id})
+            if user_dict:
+                return user_dict['dob']
+            else:
+                return 'No such user'
 
     def set_dob(self, user_id, dob):
         self.__cache.set(user_id, dob)
