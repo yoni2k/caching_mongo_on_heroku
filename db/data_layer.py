@@ -2,6 +2,7 @@ import pymongo
 import os
 import random
 
+OFFSET_OF_IDs = 5
 
 class DataLayer:
 
@@ -25,7 +26,7 @@ class DataLayer:
         dob_infos = [
             {'id': str(i),
              'dob': random.randint(1920, 2020)}
-            for i in range(num_entries)]
+            for i in range(OFFSET_OF_IDs, num_entries + OFFSET_OF_IDs)]
         self.__dob.insert_many(dob_infos)
 
     def __init__(self):
