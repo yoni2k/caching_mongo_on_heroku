@@ -24,3 +24,4 @@ class DataLayerSetGet(DataLayer):
 
     def __init__(self, cache):
         self.__cache = cache
+        super()

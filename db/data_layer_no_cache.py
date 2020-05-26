@@ -17,3 +17,6 @@ class DataLayerNoCache(DataLayer):
 
     def delete_dob(self, user_id):
         self.__dob.delete_one({"id": user_id})
+
+    def __init__(self):
+        super()
