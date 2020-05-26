@@ -28,7 +28,7 @@ def dob(user_id):
 
 @app.route("/benchmark", methods=['POST'])
 def benchmark():
-    threshold = data_layer.__cache_threshold
+    threshold = data_layer.get_threshold()
 
     data_layer.clear_cache()
 

@@ -34,6 +34,9 @@ class DataLayerSetGet:
     def clear_cache(self):
         self.__cache.clear()
 
+    def get_threshold(self):
+        return self.__cache.config['CACHE_THRESHOLD']
+
     def populate_db(self, num_entries):
         # delete everything existing
         self.__dob.drop()
@@ -54,4 +57,3 @@ class DataLayerSetGet:
         cache.init_app(app)
 
         self.__cache = cache
-        self.__cache_threshold = cache.config['CACHE_THRESHOLD']
