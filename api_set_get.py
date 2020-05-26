@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 import os
+import time
 
 from db.data_layer_set_get_new import DataLayerSetGet
 
@@ -29,6 +30,27 @@ def dob(user_id):
         #  DELETE DOB
         data_layer.delete_dob(user_id)
         return 'OK'
+
+
+@app.route("/benchmark", methods=['POST'])
+def benchmark():
+    threshold = cache.config['CACHE_THRESHOLD']
+    offset = data_layer.OFFSET_OF_IDs
+
+    data_layer.populate_db(threshold)
+
+    start_time = time.time()
+    for i in range(offset, offset + threshold):
+        data_layer.get_dob(i)
+    no_cache_time = time.time() - start_time
+
+    start_time = time.time()
+    for i in range(offset, offset + threshold):
+        data_layer.get_dob(i)
+    with_cache_time = time.time() - start_time
+
+    return f'Time no cache {round(no_cache_time, 2)} secs, with cache {round(with_cache_time, 2)} secs' + \
+           f'{round(no_cache_time / with_cache_time)} times faster'
 
 
 if __name__ == "__main__":

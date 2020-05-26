@@ -1,9 +1,12 @@
 import pymongo
 import os
+import random
 from flask_caching import Cache
 
 
 class DataLayerSetGet:
+
+    OFFSET_OF_IDs = 10
 
     def get_dob(self, user_id):
         dob = self.__cache.get(user_id)
@@ -27,6 +30,16 @@ class DataLayerSetGet:
     def delete_dob(self, user_id):
         self.__cache.delete(user_id)
         self.__dob.delete_one({"id": user_id})
+
+    def populate_db(self, num_entries):
+        # delete everything existing
+        self.__dob.drop()
+
+        dob_infos = [
+            {'id': str(i),
+             'dob': random.randint(1920, 2020)}
+            for i in range(OFFSET_OF_IDs, num_entries + OFFSET_OF_IDs)]
+        self.__dob.insert_many(dob_infos)
 
     def __init__(self, cache):
         client = pymongo.MongoClient(os.environ.get('MONGODB_URI'), retryWrites=False)

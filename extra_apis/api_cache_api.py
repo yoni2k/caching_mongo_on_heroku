@@ -16,18 +16,21 @@ cache.init_app(app)
 
 
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
-@cache.cached(timeout=30, unless=lambda req: req.method in ['PUT', 'DELETE'](request))
+@cache.cached(timeout=30, unless=lambda: request.method in ['PUT', 'DELETE'])
 def dob(user_id):
     if request.method == 'GET':
         print(f'API: Getting Date of birth for user id: {user_id}')
         dob = data_layer.get_dob(user_id)
         return str(dob)
     elif request.method == 'PUT':
+        cache.delete(request.path)
+
         dob = request.args.get('dob')
         data_layer.set_dob(user_id, dob)
         return 'OK'
     else:
         #  DELETE DOB
+        cache.delete(request.path)
         data_layer.delete_dob(user_id)
         return 'OK'
 
