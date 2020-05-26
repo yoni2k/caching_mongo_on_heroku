@@ -10,7 +10,7 @@ from db.data_layer_with_cache import DataLayerWithCache
 
 app = Flask(__name__)
 
-use_cache = False
+use_cache = True
 
 if use_cache:
     cache = Cache(config={'CACHE_TYPE': 'simple'})
