@@ -20,11 +20,11 @@ class DataLayerSetGet:
                 ans = user_dict['dob']
             else:
                 ans = 'No such user'
-            self.__cache.set(user_id, ans)
+            self.__cache.set(user_id, ans, timeout=30)
             return ans
 
     def set_dob(self, user_id, dob):
-        self.__cache.set(user_id, dob)
+        self.__cache.set(user_id, dob, timeout=30)
         self.__dob.insert_one({"id": user_id, 'dob': dob})
 
     def delete_dob(self, user_id):
