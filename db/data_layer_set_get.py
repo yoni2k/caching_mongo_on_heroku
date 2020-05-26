@@ -31,6 +31,9 @@ class DataLayerSetGet:
         self.__cache.delete(user_id)
         self.__dob.delete_one({"id": user_id})
 
+    def clear_cache(self):
+        self.__cache.clear()
+
     def populate_db(self, num_entries):
         # delete everything existing
         self.__dob.drop()
@@ -41,9 +44,14 @@ class DataLayerSetGet:
             for i in range(self.OFFSET_OF_IDs, num_entries + self.OFFSET_OF_IDs)]
         self.__dob.insert_many(dob_infos)
 
-    def __init__(self, cache):
+    def __init__(self, app):
         client = pymongo.MongoClient(os.environ.get('MONGODB_URI'), retryWrites=False)
 
         db = client.get_default_database()
         self.__dob = db["dates_of_birth"]
+
+        cache = Cache(config={'CACHE_TYPE': 'simple', 'CACHE_THRESHOLD': 1000})
+        cache.init_app(app)
+
         self.__cache = cache
+        self.__cache_threshold = cache.config['CACHE_THRESHOLD']

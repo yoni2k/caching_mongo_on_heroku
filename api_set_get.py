@@ -3,17 +3,11 @@ from flask import request
 import os
 import time
 
-from db.data_layer_set_get_new import DataLayerSetGet
-
-# For caching
-from flask_caching import Cache
+from db.data_layer_set_get import DataLayerSetGet
 
 app = Flask(__name__)
 
-cache = Cache(config={'CACHE_TYPE': 'simple', 'CACHE_THRESHOLD': 1000})
-cache.init_app(app)
-
-data_layer = DataLayerSetGet(cache)
+data_layer = DataLayerSetGet(app)
 
 
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
@@ -34,9 +28,9 @@ def dob(user_id):
 
 @app.route("/benchmark", methods=['POST'])
 def benchmark():
-    threshold = cache.config['CACHE_THRESHOLD']
+    threshold = data_layer.__cache_threshold
 
-    cache.clear()
+    data_layer.clear_cache()
 
     offset = data_layer.OFFSET_OF_IDs
 

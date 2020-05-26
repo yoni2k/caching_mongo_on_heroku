@@ -3,7 +3,7 @@ from flask import request
 import os
 
 
-from db.data_layer_no_cache_new import DataLayerNoCache
+from db.data_layer_no_cache import DataLayerNoCache
 
 app = Flask(__name__)
 data_layer = DataLayerNoCache()
