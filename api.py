@@ -24,7 +24,10 @@ def dob_vars(user_id):
     """
     if request.method == 'GET':
         dob = dataLayer.get_dob(user_id)
-        return str(dob)
+        if dob:
+            return str(dob)
+        else:
+            return 'No such user'
     elif request.method == 'PUT':
         dob = request.args.get('dob')
         dataLayer.set_dob(user_id, dob)
@@ -58,7 +61,7 @@ def dob_vars(user_id):
 
 @app.route("/populate_db", methods=['POST'])
 def populate_db():
-    dataLayer.populate_db(request.args.get('num_dobs'))
+    dataLayer.populate_db(int(request.args.get('num_dobs')))
     return 'OK'
 
 
