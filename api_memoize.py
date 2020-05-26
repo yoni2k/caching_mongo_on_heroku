@@ -26,7 +26,7 @@ def get_dob(user_id):
 def dob(user_id):
     if request.method == 'GET':
         print(f'API: Getting Date of birth for user id: {user_id}')
-        return data_layer.get_dob(user_id)
+        return get_dob(user_id)
     elif request.method == 'PUT':
         cache.delete_memoized(get_dob, user_id)
 
