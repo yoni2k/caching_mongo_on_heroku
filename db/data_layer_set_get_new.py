@@ -1,17 +1,17 @@
 import pymongo
+import os
 from flask_caching import Cache
-from db.data_layer import DataLayer
 
 
-class DataLayerSetGet(DataLayer):
+class DataLayerSetGet:
 
     def get_dob(self, user_id):
         dob = self.__cache.get(user_id)
         if dob:
-            print(f'In data_layer_set_get.py: Getting Date of birth for user id FROM CACHE: {user_id}')
+            print(f'In DB: Getting Date of birth for user id FROM CACHE: {user_id}')
             return dob
         else:
-            print(f'In data_layer_set_get.py: Getting Date of birth for user id FROM DB: {user_id}')
+            print(f'In DB: Getting Date of birth for user id FROM DB: {user_id}')
             return self.__get_dob_generic(self.__dob, user_id)
 
     def set_dob(self, user_id, dob):
@@ -23,6 +23,8 @@ class DataLayerSetGet(DataLayer):
         self.__dob.delete_one({"id": user_id})
 
     def __init__(self, cache):
-        super().__init__()
-        self.__cache = cache
+        client = pymongo.MongoClient(os.environ.get('MONGODB_URI'), retryWrites=False)
 
+        db = client.get_default_database()
+        self.__dob = db["dates_of_birth"]
+        self.__cache = cache

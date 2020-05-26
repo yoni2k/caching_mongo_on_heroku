@@ -1,3 +1,5 @@
+from flask import Flask
+from flask import request
 import pymongo
 import os
 import random
@@ -5,7 +7,21 @@ import random
 OFFSET_OF_IDs = 5
 
 
-class DataLayer:
+class DataLayerNoCache:
+
+    def get_dob(self, user_id):
+        print(f'DB: Getting Date of birth for user id: {user_id}')
+        user_dict = self.__dob.find_one({"id": user_id})
+        if user_dict:
+            return user_dict['dob']
+        else:
+            return 'No such user'
+
+    def set_dob(self, user_id, dob):
+        self.__dob.insert_one({"id": user_id, 'dob': dob})
+
+    def delete_dob(self, user_id):
+        self.__dob.delete_one({"id": user_id})
 
     def populate_db(self, num_entries):
         # delete everything existing
@@ -22,3 +38,4 @@ class DataLayer:
 
         db = client.get_default_database()
         self.__dob = db["dates_of_birth"]
+

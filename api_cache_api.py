@@ -2,13 +2,13 @@ from flask import Flask
 from flask import request
 import os
 
-from api_no_cache import DataLayer
+from db.data_layer_no_cache_new import DataLayerNoCache
 
 # For caching
 from flask_caching import Cache
 
 app = Flask(__name__)
-data_layer = DataLayer()
+data_layer = DataLayerNoCache()
 
 # For caching
 cache = Cache(config={'CACHE_TYPE': 'simple'})

@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 import os
 
-from api_no_cache import DataLayer
+from db.data_layer_no_cache_new import DataLayerNoCache
 
 # For caching
 from flask_caching import Cache
@@ -14,7 +14,7 @@ app = Flask(__name__)
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 cache.init_app(app)
 
-data_layer = DataLayer()
+data_layer = DataLayerNoCache()
 
 
 @cache.memoize(30)
@@ -28,8 +28,6 @@ def dob(user_id):
         print(f'API: Getting Date of birth for user id: {user_id}')
         return get_dob(user_id)
     elif request.method == 'PUT':
-        cache.delete_memoized(get_dob, user_id)
-
         dob = request.args.get('dob')
         data_layer.set_dob(user_id, dob)
         return 'OK'
