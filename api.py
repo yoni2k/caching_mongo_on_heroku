@@ -21,7 +21,7 @@ else:
 
 
 @app.route("/dob_vars/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
-@cache.cached(timeout=30)
+# @cache.cached(timeout=30)
 def dob_vars(user_id):
     """
     Handle Date of birth info (year of birth).

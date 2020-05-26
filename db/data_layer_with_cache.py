@@ -14,6 +14,9 @@ OFFSET_OF_IDs = 5
 
 class DataLayerWithCache:
 
+    __cache = None
+
+    @__cache.memoize(30)
     def get_dob(self, user_id):
         user_dict = self.__dob.find_one({"id": user_id})
         print(f'In data_layer_with_cache.py: Getting Date of birth for user id: {user_id}')
@@ -49,4 +52,4 @@ class DataLayerWithCache:
 
         db = client.get_default_database()
         self.__dob = db["dates_of_birth"]
-        self.__cache = cache
+        __cache = cache
