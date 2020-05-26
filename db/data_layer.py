@@ -5,20 +5,25 @@ import random
 
 class DataLayer:
 
-    def get_year_of_birth_by_id(self, user_id):
+    def get_dob(self, user_id):
         user_dict = self.__dob.find_one({"id": user_id})
-        return user_dict['year_of_birth']
+        return user_dict['dob']
 
-    def populate_db(self):
+    def set_dob(self, user_id, dob):
+        self.__dob.insert_one({"id": user_id, 'dob': dob})
+
+    def delete_dob(self, user_id):
+        self.__dob.delete_one({"id": user_id})
+
+    def populate_db(self, num_entries):
         # delete everything existing
         self.__dob.drop()
 
-        dob_info = [{'id': str(i), 'year_of_birth': random.randint(1920, 2020)} for i in range(10000)]
-        self.__dob.insert_many(dob_info)
-
-        # for i in range(10000):
-        #     dob_info = {'id': str(i), 'year_of_birth': 1950}
-        #     self.__dob.insert_many(dob_info)
+        dob_infos = [
+            {'id': str(i),
+             'dob': random.randint(1920, 2020)}
+            for i in range(num_entries)]
+        self.__dob.insert_many(dob_infos)
 
     def __init__(self):
         mongo_uri = os.environ.get('MONGODB_URI')
@@ -30,4 +35,4 @@ class DataLayer:
             client = pymongo.MongoClient(mongo_uri, 27017)
 
         db = client.get_default_database()
-        self.__dob = db["years_of_birth"]
+        self.__dob = db["dates_of_birth"]
