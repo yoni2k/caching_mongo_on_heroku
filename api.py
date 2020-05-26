@@ -1,20 +1,27 @@
 from flask import Flask
 from flask import request
-from db.data_layer import DataLayer
-# from db.data_layer_with_cache import DataLayerWithCache
 import os
+
+from db.data_layer import DataLayer
+
+# For caching
+from flask_caching import Cache
+from db.data_layer_with_cache import DataLayerWithCache
 
 app = Flask(__name__)
 
 use_cache = False
 
-# if use_cache:
-#     dataLayer = DataLayerWithCache()
-# else:
-dataLayer = DataLayer()
+if use_cache:
+    cache = Cache(config={'CACHE_TYPE': 'simple'})
+    cache.init_app(app)
+    dataLayer = DataLayerWithCache(cache)
+else:
+    dataLayer = DataLayer()
 
 
 @app.route("/dob_vars/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
+@cache.cached(timeout=30)
 def dob_vars(user_id):
     """
     Handle Date of birth info (year of birth).
