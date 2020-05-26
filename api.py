@@ -51,12 +51,12 @@ def dob_cache_api(user_id):
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
 def dob_cache_api(user_id):
     cache_type = request.args.get('cache_type')
-    if cache_type == 'none':
-        data_layer = data_layers['no_cache']
-    elif cache_type == 'memoize':
+    if cache_type == 'memoize':
         data_layer = data_layers['memoize']
-    else:
+    elif cache_type == 'set_get':
         data_layer = data_layers['set_get']
+    else:
+        data_layer = data_layers['no_cache']
 
     return dob_generic(user_id, request, data_layer)
 
