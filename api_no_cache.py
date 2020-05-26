@@ -45,7 +45,7 @@ data_layer = DataLayer()
 
 
 @app.route("/dob/<string:user_id>", methods=['GET', 'PUT', 'DELETE'])
-def dob_cache_api(user_id):
+def dob(user_id):
     if request.method == 'GET':
         print(f'API: Getting Date of birth for user id: {user_id}')
         dob = data_layer.get_dob(user_id)
@@ -55,7 +55,7 @@ def dob_cache_api(user_id):
         data_layer.set_dob(user_id, dob)
         return 'OK'
     else:
-        #  DELETE date
+        #  DELETE DOB
         data_layer.delete_dob(user_id)
         return 'OK'
 
