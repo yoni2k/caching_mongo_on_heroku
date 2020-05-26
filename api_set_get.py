@@ -36,6 +36,8 @@ def dob(user_id):
 def benchmark():
     threshold = cache.config['CACHE_THRESHOLD']
 
+    cache.clear()
+
     offset = data_layer.OFFSET_OF_IDs
 
     data_layer.populate_db(threshold)
@@ -50,7 +52,7 @@ def benchmark():
         data_layer.get_dob(i)
     with_cache_time = time.time() - start_time
 
-    return f'Time no cache {round(no_cache_time, 2)} secs, with cache {round(with_cache_time, 2)} secs' + \
+    return f'Time no cache {round(no_cache_time, 2)} secs, with cache {round(with_cache_time, 2)} secs, ' + \
            f'{round(no_cache_time / with_cache_time)} times faster'
 
 
