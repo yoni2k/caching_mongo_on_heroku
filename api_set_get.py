@@ -10,7 +10,7 @@ from flask_caching import Cache
 
 app = Flask(__name__)
 
-cache = Cache(config={'CACHE_TYPE': 'simple'})
+cache = Cache(config={'CACHE_TYPE': 'simple', 'CACHE_THRESHOLD': 1000})
 cache.init_app(app)
 
 data_layer = DataLayerSetGet(cache)
@@ -34,7 +34,6 @@ def dob(user_id):
 
 @app.route("/benchmark", methods=['POST'])
 def benchmark():
-    print(cache.config.keys())
     threshold = cache.config['CACHE_THRESHOLD']
 
     offset = data_layer.OFFSET_OF_IDs
