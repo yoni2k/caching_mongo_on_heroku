@@ -30,6 +30,7 @@ def dob_vars(user_id):
         In case of GET, return the year of birth. Otherwise return 'OK' on success
     """
     if request.method == 'GET':
+        print(f'In apy.py: Getting Date of birth for user id: {user_id}')
         dob = dataLayer.get_dob(user_id)
         return str(dob)
     elif request.method == 'PUT':

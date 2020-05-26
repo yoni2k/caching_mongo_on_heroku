@@ -16,7 +16,7 @@ class DataLayerWithCache:
 
     def get_dob(self, user_id):
         user_dict = self.__dob.find_one({"id": user_id})
-        print(f'Getting user info: {user_id}')
+        print(f'In data_layer_with_cache.py: Getting Date of birth for user id: {user_id}')
         if user_dict:
             return user_dict['dob']
         else:
