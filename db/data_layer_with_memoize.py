@@ -26,5 +26,5 @@ class DataLayerWithMemoize(DataLayer):
         self.__dob.delete_one({"id": user_id})
 
     def __init__(self, cache):
+        super().__init__()
         self.__cache = cache
-        super()
