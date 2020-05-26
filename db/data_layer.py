@@ -1,7 +1,6 @@
 import pymongo
 import os
 import random
-import logging
 
 OFFSET_OF_IDs = 5
 
@@ -10,7 +9,7 @@ class DataLayer:
 
     def get_dob(self, user_id):
         user_dict = self.__dob.find_one({"id": user_id})
-        logging.info(f'Getting user info: {user_id}')
+        print(f'Getting user info: {user_id}')
         if user_dict:
             return user_dict['dob']
         else:
