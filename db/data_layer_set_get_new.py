@@ -18,6 +18,7 @@ class DataLayerSetGet:
             else:
                 ans = 'No such user'
             self.__cache.set(user_id, ans)
+            return ans
 
     def set_dob(self, user_id, dob):
         self.__cache.set(user_id, dob)
